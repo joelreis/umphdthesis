@@ -15,11 +15,11 @@ This repository contains a LaTeX thesis template for an English-language PhD dis
 
 <ol>
 <li> Install a LaTeX distribution, for example: </li>
-   - TeX Live (Linux)
-   
-   - MacTeX (macOS)
-   - 
-   - MiKTeX (Windows)
+   <ul>
+   <li>TeX Live (Linux) </li>
+   <li>MacTeX (macOS)</li>
+   <li>MiKTeX (Windows)</li>
+   </ul>
 
 <li> Compile the document </li>
    <ol>
