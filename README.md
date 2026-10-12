@@ -13,21 +13,26 @@ This repository contains a LaTeX thesis template for an English-language PhD dis
 
 ## Quick start
 
-1. Install a LaTeX distribution, for example:
+<ol>
+<li> Install a LaTeX distribution, for example: </li>
    - TeX Live (Linux)
    - MacTeX (macOS)
    - MiKTeX (Windows)
 
-2. Compile the document
-  1. Via terminal
-    1. Open a terminal in the repository root
-    2. Run:
-  
+<li> Compile the document </li>
+   <ol>
+   <li> Via terminal </li>
+      <ol>
+      <li> Open a terminal in the repository root </li>
+      <li> Run: </li>
+         
     ```bash
     pdflatex thesis.tex
     bibtex thesis
     pdflatex thesis.tex
     pdflatex thesis.tex
-
-  2. Using a LaTeX IDE such as TeXstudio
-    1.  Press F5 on your keyboard or click on the Build & View double green arrow  
+      
+   </ol>
+  <li> Using a LaTeX IDE such as TeXstudio: simply press F5 on your keyboard or click on the Build & View double green arrow. </li>
+  </ol>
+</ol> 
