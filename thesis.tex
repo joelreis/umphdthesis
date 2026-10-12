@@ -1,0 +1,120 @@
+\documentclass{umphdthesis}
+
+%----------------
+% Thesis metadata
+%----------------
+\thesistitle{Title of Thesis}
+\thesisauthor{Given Names}{Surname}
+\thesissupervisor{Name of Supervisor}
+\thesiscosupervisor{Name of Co-supervisor(s) (if applicable)} % if applicable
+\thesisdepartment{Name of Department (if applicable)} % optional
+\thesisdegreetitle{Degree of Title}
+\thesisdegreeyear{Year}
+\thesisacademicunit{Academic Unit}
+\thesisauthoryear{Year}
+
+%----------------------
+% Your packages go here
+%----------------------
+\usepackage{lipsum}
+
+\begin{document}
+
+%------------------------------
+% Front matter (Roman numerals)
+%------------------------------
+\umphdfrontmatter
+
+\begin{umphdacknowledgements}
+\lipsum[1-2]
+\end{umphdacknowledgements}
+
+% Abstract (max 350 words!)
+\begin{umphdabstract}
+\lipsum[1-2]
+\end{umphdabstract}
+
+% Declaration
+\begin{umphddeclaration}
+\end{umphddeclaration}
+
+% Table of Contents
+\makeatletter
+\@openrightfalse
+\makeatother
+\tableofcontents
+
+% List of Tables and Figures (combined)
+\umphdlistoffiguresandtables
+
+% Glossary (optional)
+\begin{umphdglossary}
+\textbf{LiDAR} -- Light Detection and Ranging\par
+\textbf{mAP} -- mean Average Precision\par
+\end{umphdglossary}
+
+% List of Abbreviations (optional)
+\begin{umphdabbreviations}
+\textbf{CNN} -- Convolutional Neural Network\par
+\textbf{GPU} -- Graphics Processing Unit\par
+\end{umphdabbreviations}
+
+%------------------------------
+% Main matter (Arabic numerals)
+%------------------------------
+\umphdmainmatter
+
+\chapter{Introduction}
+\section{Background}
+
+\lipsum[1-2]
+
+\section{Research Objectives}
+
+\lipsum[1-2]
+
+\section{Contributions and Originality}
+
+\lipsum[1-2]
+
+\chapter{Literature Review}
+
+The practice of writing programs as documents intended for human
+readers, known as literate programming, was introduced by
+\cite{knuth1984} and remains influential in the design of modern
+documentation tools. Its ideas were popularised in part through the
+\LaTeX\ typesetting system \cite{lamport1994}, which itself emphasises
+the separation of content from presentation.
+
+\section{Deep Learning for Perception}
+\subsection{Object Detection}
+\lipsum[1-2]
+
+\chapter{Methodology}
+\section{Proposed Architecture}
+\lipsum[1-2]
+
+\chapter{Experiments and Results}
+\section{Datasets}
+\lipsum[1-2]
+
+\chapter{Conclusion and Future Work}
+\lipsum[1-2]
+
+%------------------------------
+% References (APA or MLA style)
+%------------------------------
+\bibliographystyle{apalike}
+\bibliography{bibliography}
+\addcontentsline{toc}{chapter}{References}
+\clearpage
+
+%-----------
+% Appendices
+%-----------
+\appendix
+\chapter{Additional Experimental Results}
+
+\lipsum[1-2]
+
+\end{document}
