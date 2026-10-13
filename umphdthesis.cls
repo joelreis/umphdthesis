@@ -13,11 +13,11 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{umphdthesis}[2026/10/12 v1.0 University of Macau PhD Thesis]
 
-%------------------------------------------------------------------------------
+%--------
 % Options
-%------------------------------------------------------------------------------
-\newif\if@umphd@twoside
-\@umphd@twosidetrue
+%--------
+\newif\if@umphd@twoside % Create a new boolean switch
+\@umphd@twosidetrue % Set the switch to true by default 
 \DeclareOption{oneside}{\@umphd@twosidefalse}
 \DeclareOption{twoside}{\@umphd@twosidetrue}
 
@@ -25,25 +25,25 @@
 \@umphd@draftfalse
 \DeclareOption{draft}{\@umphd@drafttrue}
 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}} % catch-all
 \ProcessOptions\relax
 
-%------------------------------------------------------------------------------
+%--------------------------
 % Base class: report (12pt)
-%------------------------------------------------------------------------------
+%--------------------------
 \if@umphd@twoside
 \LoadClass[12pt,a4paper,twoside,openright]{report}
 \else
 \LoadClass[12pt,a4paper,oneside,openany]{report}
 \fi
 
-%------------------------------------------------------------------------------
+%------------------
 % Required packages
-%------------------------------------------------------------------------------
+%------------------
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage{newtxtext}      % Times-like text font
-\RequirePackage{newtxmath}      % Times-like math font
+\RequirePackage{newtxtext} % Times-like text font
+\RequirePackage{newtxmath} % Times-like math font
 \RequirePackage{geometry}
 \RequirePackage{setspace}
 \RequirePackage{fancyhdr}
@@ -53,15 +53,19 @@
 \RequirePackage{ifthen}
 \RequirePackage{etoolbox}
 \RequirePackage{ragged2e}
+\RequirePackage[acronym,toc]{glossaries-extra} % Also loads glossaries itself
 \RequirePackage{hyperref}
 \RequirePackage{bookmark}
 
-%------------------------------------------------------------------------------
-% Page geometry
+% If you swap this for \makenoidxglossaries, then replace \printglossary with \printnoidxglossary in the environments below.
+\makeglossaries
+
+%---------------------------------
+% Page geometry - see /docs/<> 
 %   Binding edge (inner): 4 cm
 %   Other three margins: 2.5 cm
 %   twoside: inner = binding edge
-%------------------------------------------------------------------------------
+%---------------------------------
 \geometry{
 	a4paper,
 	inner=4cm,
@@ -91,14 +95,14 @@
 	\if@umphd@twoside\@twosidetrue\else\@twosidefalse\fi
 }
 
-%------------------------------------------------------------------------------
+%-------------------------------------------
 % Line spacing: double throughout the thesis
-%------------------------------------------------------------------------------
+%-------------------------------------------
 \doublespacing
 
-%------------------------------------------------------------------------------
+%--------------------------------------------
 % Page style: page number centered at bottom
-%------------------------------------------------------------------------------
+%--------------------------------------------
 \fancypagestyle{umphd@plain}{%
 	\fancyhf{}%
 	\fancyfoot[C]{\thepage}%
@@ -118,9 +122,9 @@
 
 \pagestyle{umphd@plain}
 
-%------------------------------------------------------------------------------
+%-------------------------------
 % Chapter and section formatting
-%------------------------------------------------------------------------------
+%-------------------------------
 \titleformat{\chapter}[display]
 {\normalfont\large\bfseries\centering}
 {\chaptertitlename\ \thechapter}
@@ -135,9 +139,9 @@
 \titleformat{\subsubsection}
 {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
 
-%------------------------------------------------------------------------------
+%---------------------------------------------
 % Front matter page numbering (Roman numerals)
-%------------------------------------------------------------------------------
+%---------------------------------------------
 \newcommand{\umphd@frontmatter}{%
 	\pagenumbering{roman}%
 	\pagestyle{umphd@plain}%
@@ -148,9 +152,9 @@
 	\pagestyle{umphd@plain}%
 }
 
-%------------------------------------------------------------------------------
+%----------------
 % Thesis metadata
-%------------------------------------------------------------------------------
+%----------------
 \newcommand{\umphd@title}{}
 \newcommand{\umphd@author}{}
 \newcommand{\umphd@authorformatted}{}
@@ -161,6 +165,7 @@
 \newcommand{\umphd@degreeyear}{}
 \newcommand{\umphd@academicunit}{}
 \newcommand{\umphd@authoryear}{}
+\newcommand{\umphd@glossaryfile}{glossary-entries.tex}
 
 \newcommand{\thesistitle}[1]{%
 	\renewcommand{\umphd@title}{#1}%
@@ -177,18 +182,35 @@
 \newcommand{\umphdauthorformatted}{%
 	\MakeUppercase{\umphd@surnames}, \umphd@givennames
 }
-\newcommand{\thesissupervisor}[1]{\renewcommand{\umphd@supervisor}{#1}}
-\newcommand{\thesiscosupervisor}[1]{\renewcommand{\umphd@cosupervisor}{#1}}
-\newcommand{\thesisdepartment}[1]{\renewcommand{\umphd@department}{#1}}
-\newcommand{\thesisdegreetitle}[1]{\renewcommand{\umphd@degreetitle}{#1}}
-\newcommand{\thesisdegreeyear}[1]{\renewcommand{\umphd@degreeyear}{#1}}
-\newcommand{\thesisacademicunit}[1]{\renewcommand{\umphd@academicunit}{#1}}
-\newcommand{\thesisauthoryear}[1]{\renewcommand{\umphd@authoryear}{#1}}
+\newcommand{\thesissupervisor}[1]{%
+	\renewcommand{\umphd@supervisor}{#1}%
+}
+\newcommand{\thesiscosupervisor}[1]{%
+	\renewcommand{\umphd@cosupervisor}{#1}%
+}
+\newcommand{\thesisdepartment}[1]{%
+	\renewcommand{\umphd@department}{#1}%
+}
+\newcommand{\thesisdegreetitle}[1]{%
+	\renewcommand{\umphd@degreetitle}{#1}%
+}
+\newcommand{\thesisdegreeyear}[1]{%
+	\renewcommand{\umphd@degreeyear}{#1}%
+}
+\newcommand{\thesisacademicunit}[1]{%
+	\renewcommand{\umphd@academicunit}{#1}%
+}
+\newcommand{\thesisauthoryear}[1]{%
+	\renewcommand{\umphd@authoryear}{#1}%
+}
+\newcommand{\umphdglossaryfile}[1]{%
+	\renewcommand{\umphd@glossaryfile}{#1}
+}
 
-%------------------------------------------------------------------------------
+%----------------------------------------
 % Thesis cover (Appendix I - English)
 % Single-sided, centered, no page number
-%------------------------------------------------------------------------------
+%----------------------------------------
 \newcommand{\makecover}{%
 	\umphd@onesidedpage
 	\begin{titlepage}%
@@ -220,10 +242,10 @@
 	\umphd@restoregeometry
 }
 
-%------------------------------------------------------------------------------
+%----------------------------------------
 % Title page (Appendix II - English)
 % Single-sided, centered, no page number
-%------------------------------------------------------------------------------
+%----------------------------------------
 \newcommand{\maketitlepage}{%
 	\umphd@onesidedpage
 	\begin{titlepage}%
@@ -266,10 +288,10 @@
 	\umphd@restoregeometry
 }
 
-%------------------------------------------------------------------------------
+%-------------------------------------------------------
 % Author's Right page (Appendix III)
 % Single-sided, centered 10 cm from top, no page number
-%------------------------------------------------------------------------------
+%-------------------------------------------------------
 \newcommand{\makeauthorright}{%
 	\umphd@onesidedpage
 	\begin{titlepage}%
@@ -289,6 +311,17 @@
 	\umphd@restoregeometry
 }
 
+%-----------------
+% Acknowledgements
+%-----------------
+\newenvironment{umphdacknowledgements}{%
+	\pagenumbering{roman}%
+	\setcounter{page}{1}%
+	\chapter*{Acknowledgements}%
+	\addcontentsline{toc}{chapter}{Acknowledgements}%
+	\markboth{Acknowledgements}{Acknowledgements}%
+}
+
 %---------
 % Abstract
 %---------
@@ -305,16 +338,11 @@
 % Declaration
 %------------
 \newcommand{\umphddeclarationtext}{%
-	I declare that the thesis here submitted is original except for the source
-	materials explicitly acknowledged and that this thesis as a whole, or any
-	part of this thesis has not been previously submitted for the same degree
-	or for a different degree.
+	I declare that the thesis here submitted is original except for the source materials explicitly acknowledged and that this thesis as a whole, or any part of this thesis has not been previously submitted for the same degree or for a different degree.
 	
 	\vspace{0.5cm}
 	
-	I also acknowledge that I have read and understood the Rules on Handling
-	Student Academic Dishonesty and the Regulations of the Student Discipline
-	of the University of Macau.
+	I also acknowledge that I have read and understood the Rules on Handling Student Academic Dishonesty and the Regulations of the Student Discipline of the University of Macau.
 }
 
 \newenvironment{umphddeclaration}{%
@@ -329,35 +357,22 @@
 	\let\cleardoublepage\clearpage
 }
 
-%-----------------
-% Acknowledgements
-%-----------------
-\newenvironment{umphdacknowledgements}{%
-	\pagenumbering{roman}%
-	\setcounter{page}{1}%
-	\chapter*{Acknowledgements}%
-	\addcontentsline{toc}{chapter}{Acknowledgements}%
-	\markboth{Acknowledgements}{Acknowledgements}%
-}
-
 %---------------------------------
-% Glossary / List of Abbreviations
+% Glossary/List of Abbreviations
 %---------------------------------
 \newenvironment{umphdglossary}{%
-	\chapter*{Glossary}%
-	\addcontentsline{toc}{chapter}{Glossary}%
-	\markboth{Glossary}{Glossary}%
-}{%
 	\clearpage
-}
+	\let\cleardoublepage\clearpage
+	\printglossary[title={Glossary},toctitle={Glossary}]%
+	\clearpage
+}{}
 
 \newenvironment{umphdabbreviations}{%
-	\chapter*{List of Abbreviations}%
-	\addcontentsline{toc}{chapter}{List of Abbreviations}%
-	\markboth{List of Abbreviations}{List of Abbreviations}%
-}{%
 	\clearpage
-}
+	\let\cleardoublepage\clearpage
+	\printglossary[type=\acronymtype,title={List of Abbreviations},toctitle={List of Abbreviations}]%
+	\clearpage
+}{}
 
 %--------------------------------------
 % List of Tables and Figures (combined)
@@ -416,7 +431,19 @@
 		pdfauthor={\umphd@author},
 		pdfsubject={PhD Thesis, University of Macau}
 	}%
+	\IfFileExists{\umphd@glossaryfile}{%
+		\loadglsentries{\umphd@glossaryfile}%
+	}{}%
 }
+
+% Sensible defaults for a thesis
+\setglossarystyle{long}          % longtable-based, good for multi-page lists
+\renewcommand{\glossarypreamble}{\vspace{0.5em}}
+\setlength{\glsdescwidth}{0.75\textwidth}
+\setlength{\glspagelistwidth}{0.15\textwidth}
+
+% Abbreviation style: on first use, spell out; afterwards, short form
+\setabbreviationstyle[acronym]{long-short}
 
 %----------------------------------------------------------------
 % Convenience: build the entire front matter in the correct order
